@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="description" content="baru belajar html"
+    <title>Toggle buton with Dark/Light Mode </title>
+    <style>
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        body {
+          height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: white;
+          transition: all 0.3s ease-in-out;
+        }
+        body.dark {
+          background-color: black;
+        }
+        .toggle {
+          position: relative;
+          height: 50px;
+          width: 150px;
+          border-radius: 100px;
+          background-color: #fff;
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+          cursor: pointer;
+        }
+        
+        .toggle::before {
+          content: "";
+          position: absolute;
+          height: 50px;
+          width: 50px;
+          background: black;
+          border-radius: 50%;
+          top: 50%;
+          left: 1px;
+          transform: translateY(-50%);
+          transition: all 0.3s ease-in-out;
+        }
+        
+        .toggle.active::before {
+          left: calc(100% - 51px);
+        }
+
+    </style>
+</head>
+<body>
+ <div class="toggle"></div>
+
+
+
+ <!-- Java Script -->
+
+ <script>
+  const body = document.querySelector("body");
+  const toggle = document.querySelector(".toggle");
+
+  let getMode = localStorage.getItem("mode");
+  if (getMode && getMode === "dark") {
+    toggle.classList.add("active");
+    body.classList.add("dark");
+  }
+
+  toggle.addEventListener("click", () => {
+    toggle.classList.toggle("active");
+    body.classList.toggle("dark");
+    
+    if (!body.classList.contains("dark")) {
+      localStorage.setItem("mode", "light");
+    } else {
+      localStorage.setItem("mode", "dark");
+    }
+  });
+</script>
+
+</body>
+</html>
